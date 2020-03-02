@@ -4,7 +4,7 @@ const Header = () => {
     return(
         <header>
             <i className="fas fa-egg fa-2x"></i>
-            <h1>EgglessYolk</h1>
+            <h1>EgglessY<span>o</span>lk</h1>
         </header>
     )
 }
