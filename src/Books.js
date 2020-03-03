@@ -15,6 +15,7 @@ class Books extends Component {
     }
   }
 
+  // TUTORTIAL METHOD FOR CALLING API DIRECTLY AND GETTING BACK DATA
   searchBook = (e) => {
     e.preventDefault();
     request
@@ -27,6 +28,35 @@ class Books extends Component {
       })
   }
 
+
+  // NEW METHOD FOR UPDATING QUERY
+  handleSubmit(event) {
+    event.preventDefault();
+    fetch('http://localhost:8080/book-query-result-controller/'), {
+      method: 'POST',
+      headers: {
+        'Accept':'application/json',
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({
+        
+      })
+    }
+  }
+
+  // MY METHOD FOR UPDATING QUERY ON BACK-END WITH USER INPUT
+  // searchBook = (e) => {
+  //   e.preventDefault();
+  //   request
+  //     .get("http://localhost:8080/book-query-result-controller/")
+  //     .query({ q: this.state.searchField })
+  //     .then((data) => {
+  //       console.log(data);
+  //       const cleanData = this.cleanData(data)
+  //       this.setState({ books: cleanData })
+  //     })
+  // }
+
   handleSearch = (e) => {
     this.setState({ searchField: e.target.value })
   }
@@ -38,12 +68,12 @@ class Books extends Component {
 
   cleanData = (data) => {
     const cleanedData = data.body.items.map((book) => {
-      if(book.volumeInfo.hasOwnProperty('publishedData') === false) {
+      if(book.volumeInfo.hasOwnProperty('publishedDate') === false) {
         book.volumeInfo['publishedDate'] = '0000';
       }
 
       else if(book.volumeInfo.hasOwnProperty('imageLinks') === false) {
-        book.volumeInfo['imageLinks'] = { thumbnail: 'https://homestaymatch.com/images/no-image-available.png' }
+        book.volumeInfo['imageLinks'] = { thumbnail: 'https://image.shutterstock.com/image-vector/no-image-available-icon-flat-260nw-1240855801.jpg' }
       }
 
       return book;
