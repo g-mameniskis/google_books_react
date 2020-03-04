@@ -29,19 +29,27 @@ class Books extends Component {
   }
 
 
-  // NEW METHOD FOR UPDATING QUERY
+  // NEW METHOD FOR UPDATING QUERY (PUT REQUEST ATTEMPT)
   handleSubmit(event) {
     event.preventDefault();
-    fetch('http://localhost:8080/book-query-result-controller/'), {
+    fetch('http://localhost:8080/book-query-result-controller/', {
       method: 'POST',
       headers: {
         'Accept':'application/json',
         'Content-Type':'application/json'
       },
       body:JSON.stringify({
-        
+        searchField: event.target.searchField.value //Need to figure out if 'searchField' is correct value
       })
-    }
+    })
+    .then(res=> res.json())
+    .then((result)=>
+    {
+      console.log(data);
+      const cleanData = this.cleanData(data)
+      this.setState({ books: this.cleanData })
+    },
+    )
   }
 
   // MY METHOD FOR UPDATING QUERY ON BACK-END WITH USER INPUT
@@ -60,7 +68,7 @@ class Books extends Component {
   handleSearch = (e) => {
     this.setState({ searchField: e.target.value })
   }
-  
+   
   handleSort = (e) => {
     console.log(e.target.value);
     this.setState({ sort: e.target.value })
