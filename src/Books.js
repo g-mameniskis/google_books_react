@@ -43,16 +43,21 @@ class Books extends Component {
 
   searchBook = (e) => {
     e.preventDefault();
+    let requestBody = {
+        domain: "https://www.googleapis.com/books/v1",
+        searchCategory: "volumes",
+        searchTerm: "'" + this.state.searchField + "'",
+        // searchTerm: "The sun also rises",
+        searchTopic: "",
+        searchTopicValue: "",
+        apiKey:"AIzaSyDoc04NEgl3jof9iclXzaoXvKlTI3gRS38"
+      }
+    
+      console.log(requestBody);
+
     request
-      .post("http://localhost:8080/book-query-result-controller/",   { example: 'data' })    
-      .send({
-        "domain": "https://www.googleapis.com/books/v1",
-        "searchCategory": "volumes",
-        "searchTerm": "sun also rises",
-        "searchTopic": "",
-        "searchTopicValue": "",
-        "apiKey":"AIzaSyDoc04NEgl3jof9iclXzaoXvKlTI3gRS38"
-      })
+      .post("http://localhost:8080/book-query-result-controller/")    
+      .send(requestBody)
       .then((data) => {
         console.log(data);
         const cleanData = this.cleanData(data)
