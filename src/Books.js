@@ -48,7 +48,7 @@ class Books extends Component {
       .send({
         "domain": "https://www.googleapis.com/books/v1",
         "searchCategory": "volumes",
-        "searchTerm": "sun also rises",
+        "searchTerm": "'" + this.state.searchField + "'",
         "searchTopic": "",
         "searchTopicValue": "",
         "apiKey":"AIzaSyDoc04NEgl3jof9iclXzaoXvKlTI3gRS38"
@@ -106,7 +106,9 @@ class Books extends Component {
   }
 
   cleanData = (data) => {
+    
     const cleanedData = data.body.items.map((book) => {
+      //3 = checks value ignores type 
       if(book.volumeInfo.hasOwnProperty('publishedDate') === false) {
         book.volumeInfo['publishedDate'] = '0000';
       }
